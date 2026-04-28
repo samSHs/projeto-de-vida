@@ -19,8 +19,16 @@
                     <p>Prazo de 2 anos</p>
                     <div class="timer-container">
                         <input type="number" placeholder="Min" class="input-tempo">
-                        <button onclick="iniciarTimer(this)">Iniciar Foco</button>
-                        <span class="display">00:00</span>
+                        <div class="controles-timer">
+                            <button onclick="iniciarTimer(this)">Iniciar</button>
+                            <button onclick="pausarTimer(this)">Pausar</button>
+                            <button onclick="resetarTimer(this)">Resetar</button>
+                        </div>
+                        <span class="display">00:00:00</span>
+                    </div>
+                    <div class="progresso-container">
+                        <label>Progresso: <span class="percent-text">0%</span></label>
+                        <input type="range" min="0" max="100" value="0" class="slider-progresso" oninput="atualizarProgresso(this)">
                     </div>
                     <button onclick="marcarConcluido(this)" class="botao-concluir">Concluir Objetivo</button>
                 </div>
@@ -32,8 +40,16 @@
                     <p>Em progresso! só falta a velocidade na escrita</p>
                     <div class="timer-container">
                         <input type="number" placeholder="Min" class="input-tempo">
-                        <button onclick="iniciarTimer(this)">Iniciar Foco</button>
-                        <span class="display">00:00</span>
+                        <div class="controles-timer">
+                            <button onclick="iniciarTimer(this)">Iniciar</button>
+                            <button onclick="pausarTimer(this)">Pausar</button>
+                            <button onclick="resetarTimer(this)">Resetar</button>
+                        </div>
+                        <span class="display">00:00:00</span>
+                    </div>
+                    <div class="progresso-container">
+                        <label>Progresso: <span class="percent-text">0%</span></label>
+                        <input type="range" min="0" max="100" value="0" class="slider-progresso" oninput="atualizarProgresso(this)">
                     </div>
                     <button onclick="marcarConcluido(this)" class="botao-concluir">Concluir Objetivo</button>
                 </div>
@@ -45,8 +61,16 @@
                     <p>Preciso finalizar O Principe de Maquiavel</p>
                     <div class="timer-container">
                         <input type="number" placeholder="Min" class="input-tempo">
-                        <button onclick="iniciarTimer(this)">Iniciar Foco</button>
-                        <span class="display">00:00</span>
+                        <div class="controles-timer">
+                            <button onclick="iniciarTimer(this)">Iniciar</button>
+                            <button onclick="pausarTimer(this)">Pausar</button>
+                            <button onclick="resetarTimer(this)">Resetar</button>
+                        </div>
+                        <span class="display">00:00:00</span>
+                    </div>
+                    <div class="progresso-container">
+                        <label>Progresso: <span class="percent-text">0%</span></label>
+                        <input type="range" min="0" max="100" value="0" class="slider-progresso" oninput="atualizarProgresso(this)">
                     </div>
                     <button onclick="marcarConcluido(this)" class="botao-concluir">Concluir Objetivo</button>
                 </div>
@@ -56,36 +80,63 @@
     </section>
 
     <script>
+        function formatarTempo(segundosTotal) {
+            const hor = Math.floor(segundosTotal / 3600);
+            const min = Math.floor((segundosTotal % 3600) / 60);
+            const seg = segundosTotal % 60;
+            return `${String(hor).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
+        }
+
         function iniciarTimer(botao) {
-            const container = botao.parentElement;
+            const container = botao.closest('.timer-container');
             const input = container.querySelector('.input-tempo');
             const display = container.querySelector('.display');
-            
-            let tempoSegundos = parseInt(input.value) * 60;
 
-            if (isNaN(tempoSegundos) || tempoSegundos <= 0) {
-                alert("Por favor, insira uma quantidade de minutos.");
-                return;
+            if (!container.tempoRestante) {
+                const minutos = parseInt(input.value);
+                if (isNaN(minutos) || minutos <= 0) {
+                    alert("Por favor, insira uma quantidade de minutos.");
+                    return;
+                }
+                container.tempoRestante = minutos * 60;
             }
 
-            if (botao.intervaloID) {
-                clearInterval(botao.intervaloID);
-            }
+            if (container.intervaloID) return;
 
-            botao.intervaloID = setInterval(() => {
-                if (tempoSegundos <= 0) {
-                    clearInterval(botao.intervaloID);
+            container.intervaloID = setInterval(() => {
+                if (container.tempoRestante <= 0) {
+                    clearInterval(container.intervaloID);
+                    container.intervaloID = null;
                     display.innerText = "Concluído!";
                     return;
                 }
 
-                tempoSegundos--;
-                
-                const seg = tempoSegundos % 60;
-                const min = Math.floor(tempoSegundos / 60);
-                const hor = Math.floor(min / 60);
-                display.innerText = `${String(hor).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
+                container.tempoRestante--;
+                display.innerText = formatarTempo(container.tempoRestante);
             }, 1000);
+        }
+
+        function pausarTimer(botao) {
+            const container = botao.closest('.timer-container');
+            clearInterval(container.intervaloID);
+            container.intervaloID = null;
+        }
+
+        function resetarTimer(botao) {
+            const container = botao.closest('.timer-container');
+            const display = container.querySelector('.display');
+            const input = container.querySelector('.input-tempo');
+            
+            clearInterval(container.intervaloID);
+            container.intervaloID = null;
+            container.tempoRestante = null;
+            display.innerText = "00:00:00";
+            input.value = "";
+        }
+
+        function atualizarProgresso(slider) {
+            const percentText = slider.parentElement.querySelector('.percent-text');
+            percentText.innerText = `${slider.value}%`;
         }
 
         function marcarConcluido(botao) {

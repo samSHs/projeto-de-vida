@@ -66,8 +66,13 @@ summary { font-weight: bold; outline: none; }
 .timer-container {
     margin-top: 15px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
+}
+
+.controles-timer {
+    display: flex;
+    gap: 5px;
     flex-wrap: wrap;
 }
 
@@ -75,8 +80,8 @@ summary { font-weight: bold; outline: none; }
     background: var(--base01);
     border: 1px solid var(--base07);
     color: var(--base05);
-    padding: 5px;
-    width: 70px;
+    padding: 8px;
+    width: 100%;
     border-radius: 5px;
 }
 
@@ -89,12 +94,61 @@ summary { font-weight: bold; outline: none; }
     font-family: inherit;
     cursor: pointer;
     font-weight: bold;
+    flex: 1;
+    min-width: 80px;
+}
+
+.timer-container button:hover {
+    filter: brightness(1.1);
 }
 
 .display {
     color: var(--base0B);
     font-weight: bold;
-    min-width: 60px;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.progresso-container {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.percent-text {
+    color: var(--base0D);
+    font-weight: bold;
+}
+
+.slider-progresso {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: var(--base01);
+    outline: none;
+}
+
+.slider-progresso::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--base0D);
+    cursor: pointer;
+    border: 2px solid var(--base05);
+}
+
+.slider-progresso::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--base0D);
+    cursor: pointer;
+    border: 2px solid var(--base05);
 }
 
 .concluido {
@@ -108,11 +162,11 @@ summary { font-weight: bold; outline: none; }
 }
 
 .botao-concluir {
-    margin-top: 15px;
+    margin-top: 5px;
     background-color: var(--base0B);
     color: var(--base00);
     border: none;
-    padding: 8px 15px;
+    padding: 10px 15px;
     cursor: pointer;
     border-radius: 5px;
     font-family: inherit;
