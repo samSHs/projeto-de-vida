@@ -1,69 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap');
+@import url('https://googleapis.com');
+
+* {
+    box-sizing: border-box; /* Impede que padding/border quebrem o layout */
+    margin: 0;
+    padding: 0;
+}
+
 :root {
-    --base00: #1e1e2e; /* base */
-    --base01: #181825; /* mantle */
-    --base02: #313244; /* surface0 */
-    --base03: #45475a; /* surface1 */
-    --base04: #585b70; /* surface2 */
-    --base05: #cdd6f4; /* text */
-    --base06: #f5e0dc; /* rosewater */
-    --base07: #b4befe; /* lavender */
-    --base08: #f38ba8; /* red */
-    --base09: #fab387; /* peach */
-    --base0A: #f9e2af; /* yellow */
-    --base0B: #a6e3a1; /* green */
-    --base0C: #94e2d5; /* teal */
-    --base0D: #89b4fa; /* blue */
-    --base0E: #cba6f7; /* mauve */
-    --base0F: #f2cdcd; /* flamingo */
-    font-family: "Cascadia Code", sans-serif;
+    --base00: #1e1e2e; --base01: #181825; --base02: #313244;
+    --base03: #45475a; --base04: #585b70; --base05: #cdd6f4;
+    --base07: #b4befe; --base08: #f38ba8; --base0B: #a6e3a1;
+    --base0D: #89b4fa;
+}
+
+body {
+    font-family: "Cascadia Code", monospace;
     background-color: var(--base00);
     color: var(--base05);
-    font-optical-sizing: auto;
+    padding: 20px;
 }
 
 .conteudo-principal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
-    width: 80%;
-    margin: auto;
+    max-width: 600px; /* Limita a largura em telas grandes */
+    width: 100%;
+    margin: 0 auto;
 }
 
 .titulo-principal {
     text-align: center;
-    width: 100%;
-    font-size: 32px;
+    font-size: 24px;
     background-color: var(--base01);
-    padding: 10px;
+    padding: 20px;
     border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.botoes {
+    width: 100%;
 }
 
 .botao {
     background-color: var(--base02);
-    color: var(--base05);
     padding: 1em;
-    font-size: 18px;
-    width: 100%;
     border: 3px solid var(--base03);
     border-bottom: none;
-    border-top: none;
+    cursor: pointer;
 }
 
-.botao:first-child {
-    border-radius: 10px 10px 0px 0px;
-    border-top: 3px solid var(--base03);
+.botao:first-child { border-radius: 15px 15px 0 0; }
+.botao:last-child { 
+    border-radius: 0 0 15px 15px; 
+    border-bottom: 3px solid var(--base03); 
 }
 
-.botao:last-child {
-    border-radius: 0px 0px 10px 10px;
-    border-bottom: 3px solid var(--base03);
-} 
+summary { font-weight: bold; outline: none; }
 
 .botaoaberto {
     background-color: var(--base03);
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Estilos do Timer */
+.timer-container {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Ajusta em telas pequenas */
+}
+
+.input-tempo {
+    background: var(--base01);
+    border: 1px solid var(--base07);
+    color: var(--base05);
+    padding: 5px;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.timer-container button {
+    background: var(--base0D);
+    color: var(--base00);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.display {
+    color: var(--base0B);
+    font-weight: bold;
+    min-width: 60px;
 }
