@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meus objetivos do ano</title>
-    <!-- Importando o seu arquivo CSS externo -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,7 +13,6 @@
         <h2 class="titulo-principal">Meus Objetivos do ano</h2>
         <div class="botoes">
             
-            <!-- Objetivo 1 -->
             <details class="botao">
                 <summary>Aprender Chinês</summary>
                 <div class="botaoaberto">
@@ -24,10 +22,10 @@
                         <button onclick="iniciarTimer(this)">Iniciar Foco</button>
                         <span class="display">00:00</span>
                     </div>
+                    <button onclick="marcarConcluido(this)" class="botao-concluir">Concluir Objetivo</button>
                 </div>
             </details>
 
-            <!-- Objetivo 2 -->
             <details class="botao">
                 <summary>Melhorar minha letra</summary>
                 <div class="botaoaberto">
@@ -37,10 +35,10 @@
                         <button onclick="iniciarTimer(this)">Iniciar Foco</button>
                         <span class="display">00:00</span>
                     </div>
+                    <button onclick="marcarConcluido(this)" class="botao-concluir">Concluir Objetivo</button>
                 </div>
             </details>
 
-            <!-- Objetivo 3 -->
             <details class="botao">
                 <summary>Ler mais (Artigos e livros)</summary>
                 <div class="botaoaberto">
@@ -50,6 +48,7 @@
                         <button onclick="iniciarTimer(this)">Iniciar Foco</button>
                         <span class="display">00:00</span>
                     </div>
+                    <button onclick="marcarConcluido(this)" class="botao-concluir">Concluir Objetivo</button>
                 </div>
             </details>
 
@@ -58,26 +57,21 @@
 
     <script>
         function iniciarTimer(botao) {
-            // Seleciona os elementos dentro do bloco específico onde o botão foi clicado
             const container = botao.parentElement;
             const input = container.querySelector('.input-tempo');
             const display = container.querySelector('.display');
             
-            // Converte o valor do input para segundos
             let tempoSegundos = parseInt(input.value) * 60;
 
-            // Validação para evitar erro se o input estiver vazio ou zero
             if (isNaN(tempoSegundos) || tempoSegundos <= 0) {
                 alert("Por favor, insira uma quantidade de minutos.");
                 return;
             }
 
-            // Se o botão já tiver um timer rodando, limpa ele antes de começar o novo
             if (botao.intervaloID) {
                 clearInterval(botao.intervaloID);
             }
 
-            // Define o intervalo de 1 segundo
             botao.intervaloID = setInterval(() => {
                 if (tempoSegundos <= 0) {
                     clearInterval(botao.intervaloID);
@@ -87,14 +81,23 @@
 
                 tempoSegundos--;
                 
-                // Formatação do tempo em HH:MM:SS
                 const seg = tempoSegundos % 60;
                 const min = Math.floor(tempoSegundos / 60);
                 const hor = Math.floor(min / 60);
                 display.innerText = `${String(hor).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
             }, 1000);
         }
+
+        function marcarConcluido(botao) {
+            const objetivo = botao.closest('.botao');
+            objetivo.classList.toggle('concluido');
+
+            if (objetivo.classList.contains('concluido')) {
+                botao.innerText = "Desmarcar";
+            } else {
+                botao.innerText = "Concluir Objetivo";
+            }
+        }
     </script>
 </body>
-
 </html>

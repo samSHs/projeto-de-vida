@@ -1,7 +1,7 @@
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code&display=swap');
 
 * {
-    box-sizing: border-box; /* Impede que padding/border quebrem o layout */
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -21,7 +21,7 @@ body {
 }
 
 .conteudo-principal {
-    max-width: 600px; /* Limita a largura em telas grandes */
+    max-width: 600px;
     width: 100%;
     margin: 0 auto;
 }
@@ -45,6 +45,7 @@ body {
     border: 3px solid var(--base03);
     border-bottom: none;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .botao:first-child { border-radius: 15px 15px 0 0; }
@@ -62,13 +63,12 @@ summary { font-weight: bold; outline: none; }
     margin-top: 10px;
 }
 
-/* Estilos do Timer */
 .timer-container {
     margin-top: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: wrap; /* Ajusta em telas pequenas */
+    flex-wrap: wrap;
 }
 
 .input-tempo {
@@ -95,4 +95,31 @@ summary { font-weight: bold; outline: none; }
     color: var(--base0B);
     font-weight: bold;
     min-width: 60px;
+}
+
+.concluido {
+    border-color: var(--base0B) !important;
+    opacity: 0.7;
+}
+
+.concluido summary {
+    text-decoration: line-through;
+    color: var(--base0B);
+}
+
+.botao-concluir {
+    margin-top: 15px;
+    background-color: var(--base0B);
+    color: var(--base00);
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: inherit;
+    font-weight: bold;
+    width: 100%; 
+}
+
+.botao-concluir:hover {
+    filter: brightness(1.1);
 }
