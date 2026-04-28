@@ -87,11 +87,10 @@
 
                 tempoSegundos--;
                 
-                // Formatação do tempo em HH:MM:SS
-                const hor = Math.floor(min / 60);
+                // Formatação do tempo em MM:SS
                 const min = Math.floor(tempoSegundos / 60);
                 const seg = tempoSegundos % 60;
-                display.innerText = `${String(min).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
+                display.innerText = `${String(min).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
             }, 1000);
         }
     </script>
